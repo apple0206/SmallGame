@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>切香蕉版</title>
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <style>
+    body {
+      background-color: Black;
+    }
+
+    #fruit01 {
+      width: 200px;
+      height: 200px;
+      /*background-color: Gold;*/
+      border-radius: 10px;
+      margin: 50px auto;
+
+      display: block;
+    }
+
+    #launch_button {
+      font-size: 0.5cm;
+      display: block;
+      margin: 30px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <audio id="audio01" src="audios/sword01.wav" type="audio/wav"></audio>
+
+  <button type="button" id="launch_button">啟動</button>
+
+  <img id="fruit01" src="images/fruit01.gif">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+    var status = 0;
+
+    function cut_in() {
+      status = 1;
+    }
+
+    function cut_out() {
+      if (status == 1) {
+        $("#fruit01").effect('bounce', { distance: 30 }, 500);
+
+        audio01.pause();
+        audio01.currentTime = 0;
+
+        audio01.play();
+
+        status = 0;
+      }
+    }
+
+    fruit01.onmouseover = cut_in;
+    fruit01.onmouseout = cut_out;
+  </script>
+</body>
+
+</html>

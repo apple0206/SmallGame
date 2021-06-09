@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>計算3秒內滑鼠點擊次數</title>
+
+  <style>
+    body {
+      background-color: #3A8FB7;
+    }
+
+    #box01 {
+      width: 200px;
+      height: 200px;
+      border-radius: 10px;
+      margin: 50px auto;
+
+      display: block;
+    }
+
+    #message_box {
+      width: 600px;
+      margin: 50px auto;
+      font-size: 1cm;
+      color: #E87A90;
+      text-align: center;
+    }
+
+    #launch_button {
+      font-size: 0.5cm;
+      display: block;
+      margin: 30px auto;
+    }
+  </style>
+</head>
+
+<body>
+  <audio id="audio01" src="audios/bell01.wav" type="audio/wav"></audio>
+  <audio id="audio02" src="audios/bell02.wav" type="audio/wav"></audio>
+
+  <button type="button" id="launch_button">啟動</button>
+
+  <img id="box01"
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ80ug2a9jhf-mPIuKkO2DbhAiEf-vg-ymXzQ&usqp=CAU">
+  <div id="message_box"> </div>
+
+  <script>
+    var count01 = 3, count02 = 0;
+
+    function count_click_times() {
+      count02++;
+
+      message_box.innerHTML = count02;
+
+      audio01.pause();
+      audio01.currentTime = 0;
+
+      audio01.play();
+    }
+
+
+    function cancel_listener() {
+      box01.removeEventListener('click', count_click_times);
+
+      message_box.innerHTML = `恭喜R，總共出拳 ${count02} 次٩(ŏ﹏ŏ、)۶`;
+
+      launch_button.style.visibility = 'visible';
+
+    }
+
+    function count_down() {
+      audio02.pause();
+      audio02.currentTime = 0;
+
+      audio02.play();
+
+      message_box.innerHTML = `倒數 ${count01} 秒`;
+
+      if (count01 == 0) {
+        box01.addEventListener('click', count_click_times);
+
+        message_box.innerHTML = '開始！';
+
+        clearInterval(interval01);
+
+        setTimeout(cancel_listener, 3000);
+      }
+
+      count01--;
+    }
+
+    var interval01;
+
+    launch_button.onclick = () => interval01 = setInterval(count_down, 1000);
+
+    var interval01;
+
+    launch_button.onclick = () => {
+      launch_button.style.visibility = 'hidden';
+
+      count01 = 3;
+      count02 = 0;
+
+      interval01 = setInterval(count_down, 1000);
+    }
+  </script>
+</body>
+
+</html>
